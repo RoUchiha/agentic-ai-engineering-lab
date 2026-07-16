@@ -1,0 +1,15 @@
+node_modules/
+.next/
+coverage/
+.docx-render/
+.env
+.env.local
+*.log
+*.tsbuildinfo
+.DS_Store
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+*.egg-info/
+artifacts/eval-results/*.json

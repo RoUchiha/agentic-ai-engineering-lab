@@ -1,0 +1,5 @@
+[
+  { "scenarioId": "payment-investigation", "minimumOverall": 0.90, "expectedOutcome": "approval_required", "requiredEvidenceIds": ["ledger-81", "screen-14", "ops-22"] },
+  { "scenarioId": "policy-evidence", "minimumOverall": 0.90, "expectedOutcome": "completed", "requiredEvidenceIds": ["policy-7.2", "control-119", "faq-31"] },
+  { "scenarioId": "customer-remediation", "minimumOverall": 0.90, "expectedOutcome": "completed", "requiredEvidenceIds": ["batch-18", "playbook-4", "sla-2"] }
+]
