@@ -10,6 +10,30 @@ const coverage = [
   ["06", "Delivery", "Typed APIs, tests, CI, containers, documentation"],
 ];
 
+const observabilityProjects = [
+  {
+    index: "01",
+    title: "Agent SLO Command Center",
+    summary: "Tracks whether agent workflows are available, fast, and staying inside their error budget.",
+    metrics: ["Success rate", "p95 latency", "Error-budget burn", "Approval depth"],
+    query: "histogram_quantile(0.95, rate(agent_run_duration_seconds_bucket[5m]))",
+  },
+  {
+    index: "02",
+    title: "Cost-Quality Correlator",
+    summary: "Puts model spend, token volume, and evaluation quality together so routing trade-offs are visible.",
+    metrics: ["Cost / run", "Mean quality", "Token rate", "Quality / dollar"],
+    query: "rate(llm_estimated_cost_usd_total[5m]) / rate(agent_runs_total[5m])",
+  },
+  {
+    index: "03",
+    title: "Tool Reliability Lab",
+    summary: "Shows which tools fail, slow down, or retry most often before they degrade the full agent workflow.",
+    metrics: ["Tool success", "Tool p95", "Retry rate", "Failure share"],
+    query: "sum by (tool, status) (rate(agent_tool_calls_total[5m]))",
+  },
+];
+
 export default function Home() {
   return (
     <main>
@@ -20,6 +44,7 @@ export default function Home() {
         </a>
         <div className="nav-links">
           <a href="#lab">Live lab</a>
+          <a href="#observability">Grafana</a>
           <a href="#coverage">Skills</a>
           <a href="https://github.com/RoUchiha" target="_blank" rel="noreferrer">GitHub ↗</a>
         </div>
@@ -77,9 +102,30 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="observability-section shell" id="observability">
+        <div className="section-heading">
+          <div><span className="section-index">03 / OBSERVABILITY LAB</span><h2>Three Grafana projects</h2></div>
+          <p>Each dashboard is provisioned from source control, backed by real Prometheus metrics, and paired with alert rules and synthetic traffic for a one-command demo.</p>
+        </div>
+        <div className="observability-grid">
+          {observabilityProjects.map((project) => (
+            <article className="observability-card" key={project.index}>
+              <div className="observability-card-top"><span>{project.index}</span><em>Grafana + Prometheus</em></div>
+              <h3>{project.title}</h3>
+              <p>{project.summary}</p>
+              <ul>{project.metrics.map((metric) => <li key={metric}>{metric}</li>)}</ul>
+              <code>{project.query}</code>
+            </article>
+          ))}
+        </div>
+        <div className="observability-flow" aria-label="Observability data flow">
+          <span>FastAPI /metrics</span><i>-&gt;</i><span>Prometheus scrape</span><i>-&gt;</i><span>PromQL</span><i>-&gt;</i><span>Grafana + alerts</span>
+        </div>
+      </section>
+
       <section className="architecture shell">
         <div className="section-heading compact">
-          <div><span className="section-index">03 / SYSTEM MAP</span><h2>How the parts connect</h2></div>
+          <div><span className="section-index">04 / SYSTEM MAP</span><h2>How the parts connect</h2></div>
         </div>
         <div className="system-map">
           {["Business request", "Agent graph", "Guarded tools", "Evidence + memory", "Evaluators", "Trace + audit"].map((item, index) => (

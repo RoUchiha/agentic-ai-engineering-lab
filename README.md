@@ -2,7 +2,7 @@
 
 An inspectable portfolio of the engineering work required to make AI agents useful in an enterprise: orchestration, retrieval, tool use, approvals, evaluations, observability, APIs, testing, and documentation.
 
-This is not a chatbot gallery. It is one connected system with three realistic workflows, a browser-based mission control, a TypeScript runtime, a Python API reference, automated evaluations, and a security/governance layer.
+This is not a chatbot gallery. It is one connected system with three realistic workflows, three Grafana observability projects, a browser-based mission control, a TypeScript runtime, a Python API reference, automated evaluations, and a security/governance layer.
 
 > All companies, cases, people, account details, and policy text in this repository are synthetic. Nothing here represents Citi systems, Citi data, or a claim about Citi's internal architecture.
 
@@ -23,6 +23,14 @@ npm run check
 
 That command runs linting, TypeScript checks, unit tests, agent evaluations, and a production build.
 
+To run the separate Prometheus and Grafana lab:
+
+```bash
+docker compose -f observability/docker-compose.yml up --build
+```
+
+Open Grafana at [http://localhost:3001](http://localhost:3001). Synthetic traffic starts automatically and populates all three dashboards. Docker is required, but no Grafana sign-up or API key is needed. See [Observability and Grafana](docs/OBSERVABILITY_AND_GRAFANA.md) for the full walkthrough.
+
 ## What is in the repository
 
 | Part | What it does | Why an employer cares |
@@ -33,6 +41,7 @@ That command runs linting, TypeScript checks, unit tests, agent evaluations, and
 | `src/lib/evaluation.ts` | Scores grounding, task success, policy, and citations | Shows repeatable quality measurement |
 | `src/lib/scenarios.ts` | Defines the workflows, evidence, tools, and expected decisions | Keeps product behavior in one auditable source of truth |
 | `apps/agent-api` | A small FastAPI/Pydantic implementation of the same trust boundary | Shows Python, typed contracts, validation, and container delivery |
+| `observability` | Prometheus, three provisioned Grafana dashboards, alerts, and a load generator | Shows SLOs, PromQL, metrics design, dashboards-as-code, and incident signals |
 | `evals` + `scripts` | Golden cases and the regression runner used by CI | Prevents prompt or workflow changes from silently reducing quality |
 | `docs` | Architecture, security, interview guide, skills map, access, resume export | Makes the work understandable to engineers and non-engineers |
 | `.github/workflows` | Node and Python quality gates | Shows production delivery discipline |
@@ -57,6 +66,26 @@ That command runs linting, TypeScript checks, unit tests, agent evaluations, and
 
 **Engineering evidence:** durable workflow thinking, idempotent design, service boundaries, auditability, deadlines, and guarded write actions.
 
+## Three observability and Grafana projects
+
+### 1. Agent SLO Command Center
+
+**Simple explanation:** answers whether the agent is working reliably. It shows successful outcomes, p95 latency, error-budget burn, throughput, and the human-approval backlog.
+
+**Engineering evidence:** Prometheus counters and histograms, PromQL aggregation, SLO thinking, bounded labels, and a low-success alert.
+
+### 2. Cost-Quality Correlator
+
+**Simple explanation:** compares model cost and token use with evaluation quality. It helps explain whether a more expensive model is producing enough quality improvement to justify its cost.
+
+**Engineering evidence:** cost per run, quality per dollar, model/scenario filters, evaluation telemetry, and capacity/cost reasoning.
+
+### 3. Tool Reliability Lab
+
+**Simple explanation:** identifies which agent tool is failing, retrying, or slowing down. This helps separate model problems from dependency problems.
+
+**Engineering evidence:** tool-level RED-style metrics, histogram quantiles, retry analysis, failure concentration, and a tool error-rate alert.
+
 ## How everything connects
 
 ```mermaid
@@ -71,6 +100,8 @@ flowchart LR
     H --> F
     F --> E[Evaluators]
     E --> T[Trace, cost, latency, audit]
+    T --> P[Prometheus metrics]
+    P --> G[Grafana dashboards and alerts]
     D[(Versioned evidence)] --> R
     A[Allowlisted tools] --> P
 ```
@@ -96,16 +127,18 @@ See [Architecture](docs/ARCHITECTURE.md) for component boundaries and failure be
 - **Deterministic demos:** reviewers get stable results with no key, network, or vendor dependency.
 - **Evaluation before deployment:** golden cases enforce minimum scores and expected approval behavior.
 - **Operational visibility:** each run includes latency, tokens, cost estimate, tool calls, retries, and a stable trace ID.
+- **Metrics and alerting:** the Python service exports bounded Prometheus metrics used by three Grafana dashboards and provisioned alert rules.
 - **Supply-chain care:** pinned safe framework versions, Dependabot, CI, containers, and no committed secrets.
 
 See [Security and governance](docs/SECURITY_AND_GOVERNANCE.md) for the threat model and production controls.
 
 ## Optional live integrations and sign-ups
 
-The local portfolio needs **no sign-up**. Optional production extensions are documented in [Access requirements](docs/ACCESS_REQUIREMENTS.md):
+The local portfolio needs **no sign-up**. The web demo requires Node.js; the Grafana lab additionally requires Docker. Optional production extensions are documented in [Access requirements](docs/ACCESS_REQUIREMENTS.md):
 
 - OpenAI API for live model generation
 - LangSmith or an OpenTelemetry backend for hosted tracing
+- Grafana Cloud for hosted metrics, dashboards, and alerting; the included local Grafana needs no account
 - Pinecone or another vector database for managed retrieval
 - Vercel for a public web deployment
 - GitHub for CI and portfolio hosting

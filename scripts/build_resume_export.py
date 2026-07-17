@@ -226,7 +226,7 @@ def build():
     doc.add_page_break()
     doc.add_heading("1. Recommended skills section", level=1)
     add_label_paragraph(doc, "Agentic AI", "LLM workflow orchestration, tool and function calling, retrieval-augmented generation (RAG), human-in-the-loop approvals, structured outputs, prompt and workflow evaluation, guardrails, model observability, and cost/latency optimization.")
-    add_label_paragraph(doc, "Engineering", "Python, FastAPI, Pydantic, TypeScript, React, Next.js, REST APIs, SQL, Docker, GitHub Actions, pytest, Vitest, and OpenTelemetry.")
+    add_label_paragraph(doc, "Engineering", "Python, FastAPI, Pydantic, TypeScript, React, Next.js, REST APIs, SQL, Docker, GitHub Actions, pytest, Vitest, Prometheus, PromQL, Grafana, and OpenTelemetry.")
     add_label_paragraph(doc, "Enterprise AI", "AI risk controls, least-privilege tool design, audit logging, data privacy, change management, failure recovery, idempotent workflows, and stakeholder communication.")
 
     doc.add_heading("2. Citi experience bullets - conservative", level=1)
@@ -236,6 +236,8 @@ def build():
         "Added repeatable evaluation cases for task completion, evidence coverage, and policy compliance, enabling workflow changes to be regression-tested before demonstration or release.",
         "Designed typed Python API contracts and validation rules for AI workflow inputs and outputs, improving error handling and making downstream integration behavior easier to test.",
         "Instrumented prototype agent runs with trace IDs, tool usage, latency, retry, and estimated token-cost metrics to support troubleshooting and engineering trade-off discussions.",
+        "Built Grafana dashboards for workflow SLOs, model cost versus evaluation quality, and tool reliability using bounded Prometheus metrics and version-controlled PromQL queries.",
+        "Defined prototype alerts for low workflow success, high p95 latency, and elevated tool failure rates, with demonstration thresholds pending production baselines.",
         "Documented agent boundaries, approval points, failure modes, and safe defaults in plain language for engineering, operations, and risk stakeholders.",
     ]
     for item in conservative:
@@ -257,12 +259,13 @@ def build():
     project.paragraph_format.space_after = Pt(8)
     r = project.add_run("Agentic Systems Lab")
     set_font(r, size=12, color=NAVY, bold=True)
-    r = project.add_run("  |  TypeScript, Next.js, Python, FastAPI, Docker")
+    r = project.add_run("  |  TypeScript, Next.js, Python, FastAPI, Prometheus, Grafana, Docker")
     set_font(r, size=10.5, color=GRAY)
     for item in [
         "Built a runnable enterprise-agent reference platform featuring multi-role orchestration, typed tool contracts, RAG evidence, policy-as-code, human approval, evaluation gates, and run-level observability.",
         "Implemented three synthetic financial-services workflows - payment exception triage, policy evidence Q&A, and customer remediation planning - with deterministic local execution and no required API key.",
         "Added TypeScript and Python test suites, golden evaluation cases, containerized services, CI quality gates, architecture documentation, and an optional OpenAI Responses API adapter.",
+        "Added a local Prometheus and Grafana lab with dashboards-as-code, alert provisioning, synthetic traffic, and CI validation for metrics and dashboard configuration.",
     ]:
         add_bullet(doc, item)
 
@@ -281,6 +284,7 @@ def build():
     add_star(doc, "Operations investigation assistant", "Analysts had to collect information from several approved sources before reviewing an exception.", "Explore whether AI could reduce preparation work without allowing it to make the final high-impact decision.", "Built a bounded workflow that retrieved evidence, retained source identifiers, drafted a recommendation, and sent write actions to a maker-checker approval queue. Added tests for unknown tools, missing evidence, and approval behavior.", "Demonstrated a repeatable reviewer-ready case package and established the controls and metrics needed for a measured pilot. Add a quantified result only if it was actually measured.")
     add_star(doc, "Policy-grounded assistant", "Employees needed faster answers from long procedure documents, but unsupported answers were unacceptable.", "Make answers traceable and measurable.", "Split approved documents into versioned evidence units, retrieved the most relevant passages, required source IDs in the response, and scored citation coverage and groundedness in a golden test set.", "Produced answers reviewers could verify quickly and made unsupported or stale responses visible during testing.")
     add_star(doc, "AI engineering quality gates", "Prompt and model changes could improve one example while silently degrading another.", "Create a release discipline for agent behavior.", "Added scenario-level expected outcomes, minimum evaluation thresholds, policy unit tests, and CI checks for both TypeScript and Python services.", "Turned subjective demo review into a repeatable pass/fail signal and made regressions easier to diagnose from traces and metric breakdowns.")
+    add_star(doc, "Agent observability and SLOs", "Agent failures could originate in workflow logic, model behavior, or downstream tools, making a single health check insufficient.", "Create operational views that separated user-facing reliability, cost-quality trade-offs, and dependency health.", "Instrumented a typed API with bounded Prometheus metrics, wrote PromQL for three provisioned Grafana dashboards, and defined alerts for success rate, p95 latency, and tool errors.", "Produced a repeatable local observability lab and a concrete baseline for choosing production SLOs and alert thresholds after real traffic became available.")
 
     doc.add_heading("7. Claims to avoid", level=1)
     for item in [

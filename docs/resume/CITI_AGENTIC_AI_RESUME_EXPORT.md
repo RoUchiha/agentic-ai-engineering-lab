@@ -8,7 +8,7 @@ Use only bullets that match work you actually performed. The examples below are 
 
 **Agentic AI:** LLM workflow orchestration, tool/function calling, retrieval-augmented generation (RAG), human-in-the-loop approvals, structured outputs, prompt and workflow evaluation, guardrails, model observability, cost/latency optimization
 
-**Engineering:** Python, FastAPI, Pydantic, TypeScript, React, Next.js, REST APIs, SQL, Docker, GitHub Actions, pytest, Vitest, OpenTelemetry
+**Engineering:** Python, FastAPI, Pydantic, TypeScript, React, Next.js, REST APIs, SQL, Docker, GitHub Actions, pytest, Vitest, Prometheus, PromQL, Grafana, OpenTelemetry
 
 **Enterprise AI:** AI risk controls, least-privilege tool design, audit logging, data privacy, change management, failure recovery, idempotent workflows, stakeholder communication
 
@@ -19,6 +19,8 @@ Use only bullets that match work you actually performed. The examples below are 
 - Added repeatable evaluation cases for task completion, evidence coverage, and policy compliance, enabling workflow changes to be regression-tested before demonstration or release.
 - Designed typed Python API contracts and validation rules for AI workflow inputs and outputs, improving error handling and making downstream integration behavior easier to test.
 - Instrumented prototype agent runs with trace IDs, tool usage, latency, retry, and estimated token-cost metrics to support troubleshooting and engineering trade-off discussions.
+- Built Grafana dashboards for workflow SLOs, model cost versus evaluation quality, and tool reliability using bounded Prometheus metrics and version-controlled PromQL queries.
+- Defined prototype alerts for low workflow success, high p95 latency, and elevated tool failure rates, with thresholds documented as demonstration values pending production baselines.
 - Documented agent boundaries, approval points, failure modes, and safe defaults in plain language for engineering, operations, and risk stakeholders.
 
 ## Citi experience bullets - use only with real metrics
@@ -36,6 +38,7 @@ Use only bullets that match work you actually performed. The examples below are 
 - Built a runnable enterprise-agent reference platform featuring multi-role orchestration, typed tool contracts, RAG evidence, policy-as-code, human approval, evaluation gates, and run-level observability.
 - Implemented three synthetic financial-services workflows—payment exception triage, policy evidence Q&A, and customer remediation planning—with deterministic local execution and no required API key.
 - Added TypeScript and Python test suites, golden evaluation cases, containerized services, CI quality gates, architecture documentation, and an optional OpenAI Responses API adapter.
+- Added a local Prometheus/Grafana lab with dashboards-as-code, alert provisioning, synthetic traffic, and CI validation for metrics and dashboard configuration.
 
 ## LinkedIn / profile summary
 

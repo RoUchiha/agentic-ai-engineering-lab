@@ -2,7 +2,9 @@
 
 ## Required for the local demo
 
-Nothing beyond Node.js 20.9+ and npm. The deterministic workflows are deliberately free and offline after dependency installation.
+The browser mission-control demo needs Node.js 20.9+ and npm. The deterministic workflows are deliberately free and offline after dependency installation.
+
+The observability lab needs Docker Desktop or another Docker Compose-compatible runtime. It runs Grafana and Prometheus locally, so it does not require a Grafana account, cloud subscription, or API key.
 
 ## Optional services
 
@@ -11,6 +13,7 @@ Nothing beyond Node.js 20.9+ and npm. The deterministic workflows are deliberate
 | OpenAI API | Replace the deterministic summarizer with live model generation | OpenAI Platform account, billing, API key | `OPENAI_API_KEY`, optional `OPENAI_MODEL` |
 | LangSmith | Hosted LLM traces, datasets, and evaluations | LangSmith account and project | `LANGSMITH_API_KEY` |
 | OpenTelemetry backend | Vendor-neutral traces and metrics | Access to Grafana, Datadog, Honeycomb, or another OTLP collector | `OTEL_EXPORTER_OTLP_ENDPOINT` |
+| Grafana Cloud | Host the included metrics, dashboards, and alerts outside the local Docker lab | Grafana Cloud account and stack credentials | Provider-specific Prometheus remote-write settings |
 | Pinecone | Managed vector search for larger document collections | Pinecone account and index | `PINECONE_API_KEY` |
 | Vercel | Public deployment of the Next.js application | Vercel account connected to GitHub | Configured in Vercel, not committed |
 | GitHub | Source hosting and Actions CI | GitHub account with repository access | No token committed to the repository |

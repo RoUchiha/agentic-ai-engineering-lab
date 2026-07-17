@@ -56,7 +56,7 @@ h1 em { color: var(--blue); font-family: Georgia, serif; font-weight: 400; }
 .proof-grid div:first-child { border-left: 1px solid var(--line); }
 .proof-grid strong { font: 500 30px "Geist Mono", monospace; }.proof-grid span { color: var(--muted); font-size: 12px; margin-top: 8px; }
 
-.lab-section, .coverage-section, .architecture { padding-block: 120px; }
+.lab-section, .coverage-section, .observability-section, .architecture { padding-block: 120px; }
 .section-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 80px; margin-bottom: 46px; }
 .section-heading h2 { margin: 10px 0 0; font-size: clamp(38px, 4vw, 56px); letter-spacing: -.05em; font-weight: 560; }
 .section-heading > p { margin: 0; max-width: 530px; color: var(--muted); font-size: 15px; line-height: 1.7; }
@@ -93,14 +93,29 @@ h1 em { color: var(--blue); font-family: Georgia, serif; font-weight: 400; }
 .coverage-section { border-top: 1px solid var(--line); }
 .coverage-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .coverage-card { min-height: 210px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .2s; }.coverage-card:hover { background: rgba(128,183,255,.035); }.coverage-card > span { color: var(--blue); font: 500 10px "Geist Mono", monospace; }.coverage-card h3 { margin: 52px 0 10px; font-size: 19px; letter-spacing: -.025em; }.coverage-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.observability-section { border-top: 1px solid var(--line); }
+.observability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.observability-card { min-width: 0; padding: 28px; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(128,183,255,.06), rgba(17,20,26,.8) 45%); }
+.observability-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.observability-card-top span { color: var(--blue); font: 600 10px "Geist Mono", monospace; }
+.observability-card-top em { color: var(--green); font: 500 9px "Geist Mono", monospace; font-style: normal; text-transform: uppercase; letter-spacing: .06em; }
+.observability-card h3 { margin: 42px 0 12px; font-size: 22px; letter-spacing: -.03em; }
+.observability-card p { min-height: 62px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.observability-card ul { margin: 24px 0; padding: 0; display: flex; flex-wrap: wrap; gap: 7px; list-style: none; }
+.observability-card li { padding: 6px 8px; border: 1px solid var(--line); color: #b7bcc7; font: 500 9px "Geist Mono", monospace; }
+.observability-card code { min-height: 58px; padding: 12px; display: block; overflow-wrap: anywhere; border-left: 2px solid var(--violet); background: #0b0e12; color: var(--violet); font: 9px/1.65 "Geist Mono", monospace; }
+.observability-flow { margin-top: 16px; min-height: 74px; padding: 20px 24px; display: flex; align-items: center; justify-content: center; gap: 18px; border: 1px solid var(--line); color: var(--muted); font: 600 10px "Geist Mono", monospace; text-transform: uppercase; letter-spacing: .05em; }
+.observability-flow span { color: var(--ink); }.observability-flow i { color: var(--blue); font-style: normal; }
 .architecture { border-top: 1px solid var(--line); }
 .system-map { display: grid; grid-template-columns: repeat(6, 1fr); border: 1px solid var(--line); }.map-node { min-height: 150px; padding: 20px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; position: relative; }.map-node:last-child { border: 0; }.map-node span { color: var(--dim); font: 500 9px "Geist Mono", monospace; }.map-node strong { font-size: 13px; }.map-node i { position: absolute; right: -12px; bottom: 22px; width: 23px; height: 23px; display: grid; place-items: center; z-index: 1; border: 1px solid var(--line); border-radius: 50%; background: #090b0f; color: var(--blue); font-style: normal; }.map-caption { max-width: 780px; margin: 24px 0 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
 .footer { min-height: 130px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }.footer > div { display: flex; align-items: center; gap: 12px; }.footer p { color: var(--dim); font-size: 11px; }
 .fatal-error { min-height: 100vh; display: grid; place-items: center; align-content: center; text-align: center; padding: 30px; }.fatal-error > span { color: var(--orange); font: 600 11px "Geist Mono", monospace; }.fatal-error h1 { margin: 18px 0; font-size: 46px; }.fatal-error p { color: var(--muted); }.fatal-error button { padding: 10px 16px; border: 1px solid var(--line); color: var(--ink); background: transparent; cursor: pointer; }
 
 @media (max-width: 900px) {
+  .observability-grid { grid-template-columns: 1fr; }
   .hero { grid-template-columns: 1fr; gap: 50px; }.mission-control { grid-template-columns: 1fr; }.scenario-rail { border-right: 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); }.rail-label,.rail-note { display: none; }.scenario-button { border-right: 1px solid var(--line); }.agent-graph { grid-template-columns: repeat(3, 1fr); }.result-grid { grid-template-columns: 1fr; }.trace-panel { border-right: 0; }.coverage-grid { grid-template-columns: repeat(2, 1fr); }.system-map { grid-template-columns: repeat(3, 1fr); }.map-node:nth-child(3) { border-right: 0; }.map-node:nth-child(-n+3) { border-bottom: 1px solid var(--line); }.section-heading { grid-template-columns: 1fr; gap: 20px; }
 }
 @media (max-width: 620px) {
+  .observability-section { padding-block: 80px; }.observability-flow { align-items: flex-start; flex-direction: column; }.observability-flow i { transform: rotate(90deg); }
   .shell { width: min(100% - 28px, 1180px); }.nav-links a:not(:last-child) { display: none; }.hero { padding-block: 64px; min-height: auto; }.hero-console pre { font-size: 10px; padding: 22px 16px; }.proof-grid { grid-template-columns: repeat(2, 1fr); }.proof-grid div { border-bottom: 1px solid var(--line); }.lab-section,.coverage-section,.architecture { padding-block: 80px; }.scenario-rail { grid-template-columns: 1fr; }.scenario-button { border-right: 0; }.workspace-header { align-items: flex-start; flex-direction: column; }.goal-row { grid-template-columns: 1fr; gap: 5px; }.agent-graph { grid-template-columns: 1fr; }.agent-node:not(:last-child)::after { content: "↓"; right: 14px; top: auto; bottom: -18px; }.result-summary { grid-template-columns: 1fr; }.approval-banner { grid-template-columns: 1fr; }.telemetry-row { grid-template-columns: repeat(2, 1fr); }.coverage-grid { grid-template-columns: 1fr; }.system-map { grid-template-columns: 1fr; }.map-node { border-right: 0; border-bottom: 1px solid var(--line); }.map-node i { display: none; }.footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 12px; }
 }

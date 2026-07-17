@@ -10,7 +10,8 @@ This map lets a reviewer move from a job requirement to concrete evidence in the
 | RAG | Policy workflow evidence and retrieval role | “I preserve source IDs, versions, and relevance so groundedness is measurable.” |
 | Evaluation | `src/lib/evaluation.ts`, `evals/cases.json` | “I ship golden cases and release thresholds with the workflow, not as an afterthought.” |
 | Guardrails | `src/lib/policy.ts`, policy unit tests | “Authorization is code outside the model; the model cannot grant itself a tool.” |
-| Observability | Trace timeline and telemetry panel | “Every run exposes latency, tools, retries, token use, cost, evidence, and policy outcome.” |
+| Observability | `apps/agent-api/agent_api/metrics.py`, structured API logs | “I instrument the service boundary with bounded operational, quality, cost, policy, and dependency metrics.” |
+| Grafana and Prometheus | `observability`, three dashboards and three alert rules | “I provision dashboards and alerts from source control and use PromQL to connect SLO, cost-quality, and tool reliability signals.” |
 | Reliability | Deterministic fixtures, stable run IDs, safe defaults | “I design for retries and failures before adding autonomy.” |
 | APIs and contracts | Zod route + FastAPI/Pydantic service | “I validate at service boundaries so invalid agent state does not flow downstream.” |
 | Python | `apps/agent-api` | “I use FastAPI and Pydantic for typed, testable AI service contracts.” |

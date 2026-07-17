@@ -35,3 +35,5 @@ jobs:
       - run: pip install ".[dev]"
       - run: ruff check .
       - run: pytest
+      - run: python ../../scripts/build_grafana_dashboards.py --check
+      - run: python ../../scripts/validate_observability.py
